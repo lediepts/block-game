@@ -41,7 +41,7 @@ const ROUND = Math.PI * 2
 const fov = 60;
 const aspect = window.innerWidth / window.innerHeight;
 const near = 0.1;
-const far = 120;
+const far = 600;
 
 export class Game {
   runTiming = 0
@@ -51,7 +51,7 @@ export class Game {
     this.createCamera();
     this.createRenderer();
     this.createControl()
-    new GameBoard(this.scene, 5, 10)
+    new GameBoard(this.scene, 6, 10)
 
     // this.createCube();
     // this.createSphere()
@@ -81,7 +81,7 @@ export class Game {
   }
   createCamera() {
     const camera = new PerspectiveCamera(fov, aspect, near, far);
-    camera.position.set(far / 10, far / 10, far / 10);
+    camera.position.set(0, 0, far / 10);
     camera.lookAt(new Vector3(0, 0, 0));
     this.camera = camera
   }

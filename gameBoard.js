@@ -1,15 +1,23 @@
 import * as THREE from "three"
 
+const size = 4
 class GameBoard {
   constructor(scene, w, h) {
     this.scene = scene
-    this.w = w
-    this.h = h
+    this.w = w * size
+    this.h = h * size
     this.init()
-    this.createBox()
   }
   init() {
+    for (let i = 0; i < this.w; i += size) {
+      for (let j = 0; j < this.h; j += size) {
+        const box = this.createBox()
+        box.position.x = i + size / 2 - this.w / 2
+        box.position.y = j + size / 2 - this.h / 2
+        this.scene.add(box)
+      }
 
+    }
   }
   createBox() {
     const colors = [
@@ -20,7 +28,7 @@ class GameBoard {
       0xC41E3A,
       0xffffff
     ];
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const geometry = new THREE.BoxGeometry(size - size / 20, size - size / 20, 1);
     const cubeMaterials = colors.map(color => (new THREE.MeshStandardMaterial({
       color: color,
       roughness: 0,
@@ -29,7 +37,7 @@ class GameBoard {
     })));
     const cube = new THREE.Mesh(geometry, cubeMaterials);
     cube.castShadow = true;
-    this.scene.add(cube)
+    return cube
   }
 }
 export default GameBoard
